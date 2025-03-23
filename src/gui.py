@@ -8,10 +8,17 @@ def start_window():
     d20 = roll_dice(20)
     output = f"Hello World \nd6 roll: {d6} \nd20 roll: {d20}"
 
-    # Tkinter setup
+    # setup root; left is 2/3, right is 1/3
     root = Tk()
-    frm = ttk.Frame(root, padding=10)
-    frm.grid()
-    ttk.Label(frm, text=output).grid(column=0, row=0)
-    ttk.Button(frm, text="Quit", command=root.destroy).grid(column=1, row=0)
+    root.columnconfigure(0, weight=2)
+    root.columnconfigure(1, weight=1)
+
+    # set up tkinter frames
+    frame_left = ttk.Label(root, text="left side", padding=20)
+    frame_right = ttk.Label(root, text="right side", padding=20)
+        
+    # place items on the grid
+    frame_left.grid(column=0, row=0, sticky="e")
+    frame_right.grid(column=1, row=0, sticky="nsew")
+    
     root.mainloop()
