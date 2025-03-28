@@ -35,7 +35,7 @@ def right_setup(root):
     return frame_right
 
 def add_clear_button(frame_left):
-    clear = ttk.Button(frame_left, text="clear")
+    clear = ttk.Button(frame_left, text="clear", command=clear_roll)
     clear.grid(column=0, row=0, sticky="", padx=5, pady=5)
 
 def add_history(frame_left):
@@ -71,22 +71,25 @@ def finish_roll():
     history_listbox.insert(0, result)
     current_roll.clear()
 
+def clear_roll():
+    current_roll.clear()
+
 def roll_d4():
     result = roll_dice(4)
-    current_roll.append(f"d4:{result}")
+    current_roll.append(f"▲:{result}")
     
 def roll_d6():
     result = roll_dice(6)
-    current_roll.append(f"d6:{result}")
+    current_roll.append(f"⚅:{result}")
        
 def roll_d10():
     result = roll_dice(10)
-    current_roll.append(f"d10:{result}")
+    current_roll.append(f"⬟:{result}")
         
 def roll_d12():
     result = roll_dice(12)
-    current_roll.append(f"d12:{result}")
+    current_roll.append(f"⬢:{result}")
         
 def roll_d20():
     result = roll_dice(20)
-    current_roll.append(f"d20:{result}")
+    current_roll.append(f"●:{result}")
