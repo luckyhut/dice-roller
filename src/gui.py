@@ -14,6 +14,7 @@ history_listbox = None
 def start_window():
     # setup root; left is 2/3, right is 1/3
     root = Tk()
+    root.title("Dice Roller")
     root.rowconfigure(0, weight=2)
     root.columnconfigure(0, weight=2)
     root.columnconfigure(1, weight=1)
