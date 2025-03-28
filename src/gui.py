@@ -14,6 +14,7 @@ history_listbox = None
 def start_window():
     # setup root; left is 2/3, right is 1/3
     root = Tk()
+    root.rowconfigure(0, weight=2)
     root.columnconfigure(0, weight=2)
     root.columnconfigure(1, weight=1)
 
@@ -27,39 +28,41 @@ def start_window():
     root.mainloop()
 
 def left_setup(root):
-    frame_left = ttk.Frame(root, borderwidth=10, relief="ridge", width=200, height=100)
+    frame_left = ttk.Frame(root, borderwidth=10, relief="ridge")
     frame_left.grid(column=0, row=0, sticky="nsew")
-    frame_left.columnconfigure(0, weight=1)
+    frame_left.rowconfigure(1, weight=1)
     frame_left.columnconfigure(0, weight=1)
     return frame_left
 
 def right_setup(root):
-    frame_right = ttk.Frame(root, borderwidth=10, relief="ridge", width=200, height=100)
+    frame_right = ttk.Frame(root, borderwidth=10, relief="ridge")
     frame_right.grid(column=1, row=0, sticky="nsew")
-    frame_right.columnconfigure(0, weight=1)
+    frame_right.rowconfigure(0, weight=1)
     frame_right.columnconfigure(0, weight=1)
     return frame_right
 
 def add_clear_button(frame_left):
     clear = ttk.Button(frame_left, text="clear", command=clear_roll)
-    clear.grid(column=0, row=0, sticky="", padx=5, pady=5)
+    clear.grid(column=0, row=0, sticky="n", padx=5, pady=5)
 
 def add_history(frame_left):
     global history_listbox
-    history_listbox= Listbox(frame_left, height = 10)
-    history_listbox.grid(column=0, row=1, sticky="", padx=5, pady=5)
+    history_listbox= Listbox(frame_left)
+    history_listbox.grid(column=0, row=1, sticky="nsew", padx=5, pady=5)
     sb = ttk.Scrollbar(frame_left, orient=VERTICAL, command=history_listbox.yview)
     sb.grid(column=1, row=1, stick=(N,S))
     history_listbox['yscrollcommand'] = sb.set
     
 def add_dice_buttons(frame_right):
-    finish = ttk.Button(frame_right, text="Roll !", command=finish_roll)
-    d4 = ttk.Button(frame_right, text="d4", command=roll_d4)
-    d6 = ttk.Button(frame_right, text="d6", command=roll_d6)
-    d10 = ttk.Button(frame_right, text="d10", command=roll_d10)
-    d12 = ttk.Button(frame_right, text="d12", command=roll_d12)
-    d20 = ttk.Button(frame_right, text="d20", command=roll_d20)
-    # add buttons to frame_right
+    button_frame = ttk.Frame(frame_right)
+    button_frame.grid(column=0, row=0, sticky="n")
+    finish = ttk.Button(button_frame, text="Roll !", command=finish_roll)
+    d4 = ttk.Button(button_frame, text="d4", command=roll_d4)
+    d6 = ttk.Button(button_frame, text="d6", command=roll_d6)
+    d10 = ttk.Button(button_frame, text="d10", command=roll_d10)
+    d12 = ttk.Button(button_frame, text="d12", command=roll_d12)
+    d20 = ttk.Button(button_frame, text="d20", command=roll_d20)
+    # add buttons to button_container
     finish.grid(column=0, row=0, sticky="", padx=5, pady=5)
     d4.grid(column=0, row=1, sticky="", padx=5, pady=5)
     d6.grid(column=0, row=2, sticky="", padx=5, pady=5)
