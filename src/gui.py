@@ -2,7 +2,13 @@ from tkinter import *
 from tkinter import ttk
 from dice import roll_dice
 
-current_roll = []
+current_roll = {
+    4: [],
+    6: [],
+    10: [],
+    12: [],
+    20: [],
+}
 history_listbox = None
 
 def start_window():
@@ -62,34 +68,36 @@ def add_dice_buttons(frame_right):
     d20.grid(column=0, row=5, sticky="", padx=5, pady=5)
 
 def finish_roll():
-    if not current_roll:
+    if len(current_roll[4]) == 0 and len(current_roll[6]) == 0 and len(current_roll[10]) == 0 and len(current_roll[12]) == 0 and len(current_roll[20]) == 0:
         return
     result = ""
-    for dice in current_roll:
-        result += dice + " "
-    result += " "
+    for die, rolls in current_roll.items():
+        if rolls:
+            result += f"{len(rolls)}d{die}:{rolls}"
     history_listbox.insert(0, result)
-    current_roll.clear()
+    clear_roll()
 
 def clear_roll():
-    current_roll.clear()
+    for _, rolls in current_roll.items():
+        rolls.clear()
 
 def roll_d4():
     result = roll_dice(4)
-    current_roll.append(f"▲:{result}")
+    current_roll[4].append(result)
     
 def roll_d6():
     result = roll_dice(6)
-    current_roll.append(f"⚅:{result}")
-       
+    current_roll[6].append(result)
+           
 def roll_d10():
     result = roll_dice(10)
-    current_roll.append(f"⬟:{result}")
-        
+    current_roll[10].append(result)
+            
 def roll_d12():
     result = roll_dice(12)
-    current_roll.append(f"⬢:{result}")
-        
+    current_roll[12].append(result)
+            
 def roll_d20():
     result = roll_dice(20)
-    current_roll.append(f"●:{result}")
+    current_roll[20].append(result)
+    
